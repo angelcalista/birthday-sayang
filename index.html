@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Birthday ♡</title>
+<link
+  href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap"
+  rel="stylesheet"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+<style>
+  :root {
+    --blue: #a9c9ff;
+    --blue-deep: #6f9ceb;
+    --pink: #ffc2d6;
+    --pink-deep: #ff8fac;
+    --cream: #fffaf5;
+    --ink: #4a4560;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--ink);
+    background: radial-gradient(circle at 20% 15%, #ffe1ec 0%, #cfe0ff 45%, #b9cdfb 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    overflow: hidden;
+  }
+
+  .stage {
+    width: 100%;
+    max-width: 380px;
+    height: 92vh;
+    max-height: 780px;
+    position: relative;
+  }
+
+  .card {
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    border-radius: 30px;
+    box-shadow: 0 25px 60px rgba(80, 60, 120, 0.25);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.2rem 1.6rem;
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  .card.active {
+    display: flex;
+    animation: pop-in 0.5s ease forwards;
+  }
+  @keyframes pop-in {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* topper */
+  .topper {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(120deg, var(--pink-deep), var(--blue-deep));
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    box-shadow: 0 8px 18px rgba(111, 156, 235, 0.4);
+    white-space: nowrap;
+  }
+
+  /* ---- SCENE 1: loading ---- */
+  .dot-ring {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 5px solid #eee2f0;
+    border-top-color: var(--pink-deep);
+    animation: spin 0.9s linear infinite;
+    margin-bottom: 1.6rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-label {
+    font-size: 0.95rem;
+    color: #9a92b5;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .loading-label .dots span {
+    animation: blink 1.4s infinite;
+  }
+  .loading-label .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .loading-label .dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: 0.2; } 40% { opacity: 1; } }
+
+  /* ---- SCENE 2: candle ---- */
+  .wish-title {
+    font-family: 'Caveat', cursive;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--pink-deep);
+    margin-bottom: 1.4rem;
+  }
+  .cake-wrap {
+    position: relative;
+    margin: 1rem 0 1.8rem;
+    cursor: pointer;
+  }
+  .cake {
+    width: 130px;
+  }
+  .flame {
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 22px;
+    background: linear-gradient(180deg, #ffd76b, #ff8f3f);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    animation: flicker 0.6s ease-in-out infinite alternate;
+    transform-origin: bottom center;
+  }
+  @keyframes flicker {
+    0% { transform: translateX(-50%) scale(1) rotate(-3deg); }
+    100% { transform: translateX(-50%) scale(1.1) rotate(3deg); }
+  }
+  .flame.out { opacity: 0; transition: opacity 0.3s ease; }
+  .hint {
+    font-size: 0.85rem;
+    color: #9a92b5;
+  }
+  .puff {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  /* ---- SCENE 3: letter pages ---- */
+  .photo-frame {
+    width: 100%;
+    max-width: 220px;
+    aspect-ratio: 4/3;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #dbe7ff, #ffe0ec);
+    border: 3px solid #fff;
+    box-shadow: 0 12px 26px rgba(111,156,235,0.28);
+    margin-bottom: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9fb3e0;
+    font-size: 0.8rem;
+    overflow: hidden;
+  }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+  .letter-name {
+    font-family: 'Caveat', cursive;
+    font-size: 1.7rem;
+    color: var(--blue-deep);
+    margin-bottom: 0.7rem;
+  }
+  .letter-body {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--ink);
+    max-height: 230px;
+    overflow-y: auto;
+    padding: 0 0.2rem;
+  }
+
+  .pager {
+    margin-top: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .pager button {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--blue-deep), var(--pink-deep));
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(111,156,235,0.35);
+    transition: transform 0.15s ease;
+  }
+  .pager button:hover { transform: translateY(-2px); }
+  .pager button:disabled { opacity: 0.35; cursor: default; transform: none; }
+  .pager .page-count { font-size: 0.78rem; color: #9a92b5; }
+
+  /* ---- SCENE 4: handwritten note ---- */
+  .note {
+    background: #fffef8;
+    border: 2px dashed #cbb8e8;
+    border-radius: 16px;
+    padding: 1.6rem 1.3rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #6a5a8a;
+    transform: rotate(-1.5deg);
+  }
+  .note .heart { color: var(--pink-deep); }
+  .replay {
+    margin-top: 1.6rem;
+    background: none;
+    border: 2px solid var(--blue-deep);
+    color: var(--blue-deep);
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.55rem 1.3rem;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+  .replay:hover { background: var(--blue-deep); color: #fff; }
+
+  #bgMusic {
+  margin-top: 20px;
+  width: 250px;
+  }
+
+  /* confetti */
+  .confetti-piece {
+    position: fixed;
+    top: -5%;
+    width: 8px; height: 14px;
+    opacity: 0.9;
+    z-index: 50;
+    animation: drop 2.6s ease-in forwards;
+  }
+  @keyframes drop {
+    to { transform: translateY(105vh) rotate(400deg); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flame, .dot-ring, .loading-label .dots span { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+
+  <!-- SCENE 1 -->
+  <section class="card active" id="scene-1">
+    <div class="dot-ring"></div>
+    <p class="loading-label">menyiapkan sesuatu <span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+  </section>
+
+  <!-- SCENE 2 -->
+  <section class="card" id="scene-2">
+    <span class="topper">for my boyfriend</span>
+    <p class="wish-title">make a wish✨</p>
+    <div class="cake-wrap" id="cakeWrap">
+      <div class="puff" id="puff"></div>
+      <div class="flame" id="flame"></div>
+      <svg class="cake" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="55" width="120" height="55" rx="14" fill="#ffc2d6"/>
+        <rect x="20" y="55" width="120" height="18" rx="9" fill="#ffe1ec"/>
+        <circle cx="45" cy="64" r="5" fill="#6f9ceb"/>
+        <circle cx="80" cy="64" r="5" fill="#ff8fac"/>
+        <circle cx="115" cy="64" r="5" fill="#a9c9ff"/>
+        <rect x="72" y="20" width="8" height="38" rx="4" fill="#6f9ceb"/>
+      </svg>
+    </div>
+    <p class="hint" id="hint">sentuh apinya buat tiup lilin 🕯️</p>
+  </section>
+
+  <!-- SCENE 3 -->
+  <section class="card" id="scene-3">
+    <div class="photo-frame">
+      <img src="us.jpg" alt="photo">
+    </div>
+    <p class="letter-name">Happy Birthday Sayang</p>
+    <div class="letter-body" id="letterBody"></div>
+    <div class="pager">
+      <button id="prevBtn" aria-label="sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+      <span class="page-count" id="pageCount">1 / 3</span>
+      <button id="nextBtn" aria-label="berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- SCENE 4 -->
+  <section class="card" id="scene-4">
+    <div class="note">
+      makasih udah lahir ke dunia ini <span class="heart">♡</span><br/>
+      makasih udah jadi kamu yang aku sayang <br/>
+      selamat ulang tahun, aku sayang kamu.
+    </div>
+    <audio id="bgMusic" controls loop>
+    <source src="song.mp3" type="audio/mpeg">
+    </audio>
+    <button class="replay" id="replayBtn">putar ulang</button>
+  </section>
+
+</div>
+  
+  
+<script>
+  const scenes = ['scene-1','scene-2','scene-3','scene-4'];
+  let current = 0;
+
+  function showScene(idx) {
+    scenes.forEach((id, i) => {
+      document.getElementById(id).classList.toggle('active', i === idx);
+    });
+    current = idx;
+  }
+
+  // scene 1 -> 2 after delay
+  setTimeout(() => showScene(1), 2200);
+
+  // scene 2: blow candle
+  const cakeWrap = document.getElementById('cakeWrap');
+  const flame = document.getElementById('flame');
+  const hint = document.getElementById('hint');
+  const puff = document.getElementById('puff');
+  const music = document.getElementById('bgMusic');
+  let blown = false;
+
+  cakeWrap.addEventListener('click', () => {
+    if (blown) return;
+
+    music.play();
+    
+    blown = true;
+    flame.classList.add('out');
+    hint.textContent = 'yeay! semoga harapannya terkabul 🎉';
+    spawnConfetti();
+    setTimeout(() => showScene(2), 1400);
+  });
+
+  function spawnConfetti() {
+    const colors = ['#ff8fac', '#6f9ceb', '#ffc2d6', '#a9c9ff', '#ffe1ec'];
+    for (let i = 0; i < 26; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.background = colors[Math.floor(Math.random() * colors.length)];
+      el.style.animationDelay = (Math.random() * 0.4) + 's';
+      el.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3200);
+    }
+  }
+
+  // scene 3: paginated letter
+  const pages = [
+  "Cieee sayang udah 19 tahun ajaa, tambah tua ajaa nih. Semoga di umur yang baru ini kamu selalu sehat, panjang umur, dan semua yang kamu mau bisa tercapai yaa 🤍",
+  "Makasih ya udah hadir di hidup aku. Makasih udah selalu sabar, selalu ngertiin aku, dan udah jadi orang yang selalu bikin aku senyum. Aku seneng banget bisa kenal dan punya sayang 💙",
+  "Semoga kamu selalu bahagia, dilancarkan semua urusannya, dan tetap jadi kamu yang aku sayang. Jangan lupa jaga kesehatan yaa, mam yang banyakkk. Happy Birthday sayang, love you ♡"
+];
+  let page = 0;
+  const letterBody = document.getElementById('letterBody');
+  const pageCount = document.getElementById('pageCount');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function renderPage() {
+    letterBody.textContent = pages[page];
+    pageCount.textContent = (page + 1) + ' / ' + pages.length;
+    prevBtn.disabled = page === 0;
+    nextBtn.disabled = page === pages.length - 1;
+  }
+  renderPage();
+
+  prevBtn.addEventListener('click', () => { if (page > 0) { page--; renderPage(); } });
+  nextBtn.addEventListener('click', () => {
+    if (page < pages.length - 1) {
+      page++;
+      renderPage();
+    } else {
+      setTimeout(() => showScene(3), 300);
+    }
+  });
+
+  document.getElementById('replayBtn').addEventListener('click', () => {
+    page = 0;
+    renderPage();
+    blown = false;
+    flame.classList.remove('out');
+    hint.textContent = 'sentuh apinya buat tiup lilin 🕯️';
+    showScene(0);
+    setTimeout(() => showScene(1), 2200);
+  });
+</script>
+
+  
+</body>
+  </html>
